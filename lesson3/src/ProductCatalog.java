@@ -10,28 +10,28 @@ public class ProductCatalog {
 
     public void createProduct(Product product) throws ProductAlreadyExists {
         for (Product r: p) {
-            if (r.getName() == product.getName()) {
-                throw new ProductAlreadyExists("ProductAlreadyExists");
+            if (r.getName().equals(product.getName())) {
+                throw new ProductAlreadyExists("В справочнике уже есть продукт с таким же именем: " + r.getName());
             }
         }
         p.add(product);
     }
 
     public void updateProduct(Product product) throws Exception {
-        Product c=null;
+        Product c = null;
         for (Product r: p){
             if (r.getId() == product.getId()) {
                 c = r;
             }
         }
-        if (c==null)
-        throw new ProductNotFound("ProductNotFound");
+        if (c == null)
+        throw new ProductNotFound("Нет продукта с таким же идентификатором: " + product.getId());
 
 
-        if (c.getName() == null) {
-            throw new ProductNotValid("ProductNotValid");
+        if (product.getName().equals("")) {
+            throw new ProductNotValid( "Новый продукт не имеет имени!");
         }
-        long i=c.getId();
+//        long i = c.getId();
         p.remove(c);
         p.add(product);
 
